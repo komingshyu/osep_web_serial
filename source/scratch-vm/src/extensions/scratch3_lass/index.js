@@ -7,8 +7,8 @@ const menuIconURI = null;
 const blockIconURI = null;
 
 const LASS_URI = 'https://pm25.lass-net.org/data/last.php?device_id=';
-//const AQI_URI = 'https://data.epa.gov.tw/api/v2/aqx_p_432?api_key=e8dd42e6-9b8b-43f8-991e-b3dee723a52d&limit=1000&sort=ImportDate desc&format=json';
 const AQI_URI = 'https://data.moenv.gov.tw/api/v2/aqx_p_432?api_key=e8dd42e6-9b8b-43f8-991e-b3dee723a52d&limit=1000&sort=ImportDate%20desc&format=json';
+const WERTHER_URL = 'https://opendata.cwa.gov.tw/api/v1/rest/datastore/F-C0032-001?format=JSON&Authorization=';
 
 let theLocale = null;
 
@@ -33,6 +33,8 @@ class gasoLASS {
         this.getEPAStation();
         this.siteName = ["基隆"];
         this.EPAData = {};
+
+        this.weatherData = {};
     }
 
 
@@ -157,6 +159,40 @@ class gasoLASS {
                     blockType: BlockType.REPORTER,
                     text: msg.EPAStation[theLocale]
                 },
+                "---",
+                {
+                    opcode: 'authorization',
+                    blockType: BlockType.COMMAND,
+                    arguments: {
+                        apiKey: {
+                            type: ArgumentType.STRING,
+                            defaultValue: "API Key"
+                        }
+                    },
+                    text: msg.authorization[theLocale]
+                },
+                {
+                    opcode: 'getWeatherData',
+                    blockType: BlockType.REPORTER,
+                    arguments: {
+                        locationName: {
+                            type: ArgumentType.STRING,
+                            menu: 'locationName',
+                            defaultValue: msg.taipeiCity[theLocale]
+                        },
+                        forecastTime: {
+                            type: ArgumentType.NUMBER,
+                            menu: 'forecastTime',
+                            defaultValue: '12'
+                        },
+                        weatherAttrs: {
+                            type: ArgumentType.STRING,
+                            menu: 'weatherAttrs',
+                            defaultValue: msg.Wx[theLocale]
+                        }
+                    },
+                    text: msg.getWeatherData[theLocale]
+                },
             ],
             menus: {
                 lassAttrs: {
@@ -176,7 +212,42 @@ class gasoLASS {
                         { text: 'O3', value: 'o3' },
                         { text: msg.publishTime[theLocale], value: 'publishtime' }
                     ]
-                }
+                },
+                locationName: {
+                    acceptReporters: true,
+                    items: [
+                        msg.taipeiCity[theLocale],
+                        msg.newTaipeiCity[theLocale],
+                        msg.taoyuanCity[theLocale],
+                        msg.taichungCity[theLocale],
+                        msg.tainanCity[theLocale],
+                        msg.kaohsiungCity[theLocale],
+                        msg.keelungCity[theLocale],
+                        msg.hsinchuCounty[theLocale],
+                        msg.hsinchuCity[theLocale],
+                        msg.miaoliCounty[theLocale],
+                        msg.changhuaCounty[theLocale],
+                        msg.nantouCounty[theLocale],
+                        msg.yunlinCounty[theLocale],
+                        msg.chiayiCounty[theLocale],
+                        msg.chiayiCity[theLocale],
+                        msg.pingtungCounty[theLocale],
+                        msg.yilanCounty[theLocale],
+                        msg.hualienCounty[theLocale],
+                        msg.taitungCounty[theLocale],
+                        msg.penghuCounty[theLocale],
+                        msg.kinmenCounty[theLocale],
+                        msg.lienchiangCounty[theLocale],
+                    ]
+                },
+                forecastTime: {
+                    acceptReporters: true,
+                    items: ['12', '24', '36']
+                },
+                weatherAttrs: {
+                    acceptReporters: true,
+                    items: [msg.Wx[theLocale], msg.MaxT[theLocale], msg.MinT[theLocale], msg.CI[theLocale], msg.PoP[theLocale]]
+                },
             }
         };
     }
@@ -284,6 +355,80 @@ class gasoLASS {
         this.fetchEPAData(siteName, attr);
 
         return this.EPAData;
+    }
+
+    authorization(args) {
+        var apiKey = args.apiKey;
+        const url = `${WERTHER_URL}${apiKey}`;
+
+        fetch(url)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                this.weatherData = data;
+            });
+    }
+
+    getWeatherData(args) {
+        var locationName = args.locationName;
+        var forecastTime = args.forecastTime;
+        var weatherAttrs = args.weatherAttrs;
+
+        var locationMap = {
+            [msg.taipeiCity[theLocale]]: 5,
+            [msg.newTaipeiCity[theLocale]]: 1,
+            [msg.taoyuanCity[theLocale]]: 13,
+            [msg.taichungCity[theLocale]]: 11,
+            [msg.tainanCity[theLocale]]: 6,
+            [msg.kaohsiungCity[theLocale]]: 15,
+            [msg.keelungCity[theLocale]]: 18,
+            [msg.hsinchuCounty[theLocale]]: 3,
+            [msg.hsinchuCity[theLocale]]: 4,
+            [msg.miaoliCounty[theLocale]]: 8,
+            [msg.changhuaCounty[theLocale]]: 20,
+            [msg.nantouCounty[theLocale]]: 14,
+            [msg.yunlinCounty[theLocale]]: 9,
+            [msg.chiayiCounty[theLocale]]: 0,
+            [msg.chiayiCity[theLocale]]: 2,
+            [msg.pingtungCounty[theLocale]]: 17,
+            [msg.yilanCounty[theLocale]]: 7,
+            [msg.hualienCounty[theLocale]]: 10,
+            [msg.taitungCounty[theLocale]]: 12,
+            [msg.penghuCounty[theLocale]]: 19,
+            [msg.kinmenCounty[theLocale]]: 16,
+            [msg.lienchiangCounty[theLocale]]: 21
+        };
+
+        locationName = locationMap[locationName];
+
+        var forecastTimeMap = {
+            '12': 0,
+            '24': 1,
+            '36': 2,
+        };
+
+        forecastTime = forecastTimeMap[forecastTime];
+
+        var weatherAttrsMap = {
+            [msg.Wx[theLocale]]: 0,
+            [msg.MaxT[theLocale]]: 4,
+            [msg.MinT[theLocale]]: 2,
+            [msg.CI[theLocale]]: 3,
+            [msg.PoP[theLocale]]: 1
+        };
+
+        weatherAttrs = weatherAttrsMap[weatherAttrs];
+
+        var jsonData = JSON.stringify(this.weatherData);
+        var parseData = JSON.parse(jsonData);
+
+        var wx8 = parseData["records"]["location"][locationName]["weatherElement"][weatherAttrs]["time"][forecastTime]["parameter"]["parameterName"];
+
+        return wx8;
     }
 }
 

@@ -94,8 +94,8 @@ class dataProcessing {
                     arguments: {
                         before: {
                             type: ArgumentType.STRING,
-                            menu: 'selectYear',
-                            defaultValue: '1'
+                            menu: 'selectCarrySystem',
+                            defaultValue: msg.Binary[theLocale]
                         },
                         data: {
                             type: ArgumentType.STRING,
@@ -103,8 +103,8 @@ class dataProcessing {
                         },
                         after: {
                             type: ArgumentType.STRING,
-                            menu: 'selectYear',
-                            defaultValue: '3'
+                            menu: 'selectCarrySystem',
+                            defaultValue: msg.Decimal[theLocale]
                         },
                     },
                     text: msg.conversion[theLocale]
@@ -162,7 +162,7 @@ class dataProcessing {
                 },
                 "---",
                 {
-                    opcode: 'replace',
+                    opcode: 'replaceAll',
                     blockType: BlockType.REPORTER,
                     arguments: {
                         data: {
@@ -178,7 +178,7 @@ class dataProcessing {
                             defaultValue: 'a'
                         },
                     },
-                    text: msg.replace[theLocale]
+                    text: msg.replaceAll[theLocale]
                 },
                 {
                     opcode: 'repeat',
@@ -255,29 +255,33 @@ class dataProcessing {
                         },
                     }
                 },
-
+                {
+                    opcode: 'fullwidthToHalfwidth',
+                    blockType: BlockType.REPORTER,
+                    arguments: {
+                        data: {
+                            type: ArgumentType.STRING,
+                            defaultValue: 'ＡＢＣ１２３'
+                        },
+                    },
+                    text: msg.fullwidthToHalfwidth[theLocale]
+                },
+                {
+                    opcode: 'halfwidthToFullwidth',
+                    blockType: BlockType.REPORTER,
+                    arguments: {
+                        data: {
+                            type: ArgumentType.STRING,
+                            defaultValue: 'ABC123'
+                        },
+                    },
+                    text: msg.halfwidthToFullwidth[theLocale]
+                },
             ],
             menus: {
-                selectYear: {
+                selectCarrySystem: {
                     acceptReporters: true,
-                    items: [
-                        {
-                            text: msg.Binary[theLocale],
-                            value: '1'
-                        },
-                        {
-                            text: msg.Octal[theLocale],
-                            value: '2'
-                        },
-                        {
-                            text: msg.Decimal[theLocale],
-                            value: '3'
-                        },
-                        {
-                            text: msg.Hexadecimal[theLocale],
-                            value: '4'
-                        },
-                    ]
+                    items: [msg.Binary[theLocale], msg.Octal[theLocale], msg.Decimal[theLocale], msg.Hexadecimal[theLocale]]
                 },
             }
         };
@@ -289,6 +293,16 @@ class dataProcessing {
         var data = args.data;
         var convertToDecimal;
         var convertToOtherBases;
+
+        var conversionMap = {
+            [msg.Binary[theLocale]]: '1',
+            [msg.Octal[theLocale]]: '2',
+            [msg.Decimal[theLocale]]: '3',
+            [msg.Hexadecimal[theLocale]]: '4'
+        };
+
+        beforeConversion = conversionMap[beforeConversion];
+        afterConversion = conversionMap[afterConversion];
 
         switch (beforeConversion) {
             case "1": convertToDecimal = parseInt(data, 2); break;
@@ -316,75 +330,108 @@ class dataProcessing {
         return text;
     }
 
-    startsWith(args){
+    startsWith(args) {
         var data = args.data;
         var text = args.text;
 
         return data.startsWith(text);
     }
 
-    endsWith(args){
+    endsWith(args) {
         var data = args.data;
         var text = args.text;
 
         return data.endsWith(text);
     }
 
-    replace(args) {
+    replaceAll(args) {
         var data = args.data;
         var originalText = args.originalText;
         var replaceText = args.replaceText;
-        var text = data.replace(originalText, replaceText);
+        var text = data.replaceAll(originalText, replaceText);
 
         return text;
     }
 
-    repeat(args){
+    repeat(args) {
         var data = args.data;
         var number = args.number;
 
         return data.repeat(number);
     }
 
-    trim(args){
+    trim(args) {
         return args.data.trim();
     }
 
-    uppercase(args){
+    uppercase(args) {
         return args.data.toUpperCase();
     }
 
-    lowerCase(args){
+    lowerCase(args) {
         return args.data.toLowerCase();
     }
 
-    conver_num(args){
-        const value = parseInt(args.VALUE,10) ;
-        let f_begin = parseInt(args.F_BEGIN,10);
-        let f_end = parseInt(args.F_END,10);
+    conver_num(args) {
+        const value = parseInt(args.VALUE, 10);
+        let f_begin = parseInt(args.F_BEGIN, 10);
+        let f_end = parseInt(args.F_END, 10);
         let f_range;
-        if(f_end>f_begin){
-            f_range = f_end-f_begin;
-        }else{
-            f_range = f_begin-f_end;
+        if (f_end > f_begin) {
+            f_range = f_end - f_begin;
+        } else {
+            f_range = f_begin - f_end;
         }
-        const t_begin = parseInt(args.T_BEGIN,10);
-        const t_end = parseInt(args.T_END,10);
+        const t_begin = parseInt(args.T_BEGIN, 10);
+        const t_end = parseInt(args.T_END, 10);
         let t_range;
         let t_add;
-        if(t_end>t_begin){
-            t_range = t_end -t_begin;
+        if (t_end > t_begin) {
+            t_range = t_end - t_begin;
             t_add = t_begin;
-        }else{
-            t_range = t_begin-t_end;
+        } else {
+            t_range = t_begin - t_end;
             t_add = t_end;
         }
-        const conver_value = Math.round(((value/f_range)*t_range)+t_add); 
-        console.log('conver_value',conver_value);
+        const conver_value = Math.round(((value / f_range) * t_range) + t_add);
+        console.log('conver_value', conver_value);
         return conver_value;
     }
 
-    
+    fullwidthToHalfwidth(args) {
+        const data = args.data;
+        let result = '';
+        for (let i = 0; i < data.length; i++) {
+            const charCode = data.charCodeAt(i);
+            // 全形字符范围：65281-65374
+            if (charCode >= 65281 && charCode <= 65374) {
+                result += String.fromCharCode(charCode - 65248);
+            } else if (charCode === 12288) { // 全形空格
+                result += String.fromCharCode(32);
+            } else {
+                result += data[i];
+            }
+        }
+        return result;
+    }
+
+    halfwidthToFullwidth(args) {
+        const data = args.data;
+        let result = '';
+        for (let i = 0; i < data.length; i++) {
+            const charCode = data.charCodeAt(i);
+            // 半形字符范围：33-126
+            if (charCode >= 33 && charCode <= 126) {
+                result += String.fromCharCode(charCode + 65248);
+            } else if (charCode === 32) { // 半形空格
+                result += String.fromCharCode(12288);
+            } else {
+                result += data[i];
+            }
+        }
+        return result;
+    }
+
 }
 
 module.exports = dataProcessing;

@@ -60550,6 +60550,8 @@ export default {
     "gui.menuBar.burnFirmware_e":"燒錄ESP",
     "gui.menuBar.burnFirmware_m":"燒錄Microbit",
     "gui.extension.linenotify.description":"Line通知，傳送訊息",
+    "gui.extension.telegrambot.description":"Telegram bot通知，傳送訊息",
+    "gui.extension.pushnotifyapi.description":"使用Push Notify API app通知，傳送訊息",    
     "gui.extension.microbitMore.description":"玩轉 micro:bit 的所有功能。(v2-0.2.4)",
     "gui.extension.microbit.connectingMessage":"連線",
     "gui.extension.chart.description":"使用 Chart.js 函式庫製作圖表，透過資料視覺化來檢視資料",
@@ -60561,7 +60563,6 @@ export default {
     
     "gui.extension.qrcodeblocks.name":"QR Code",
     "gui.extension.tmpose2scratchblocks.description":"辨識自己的姿勢",
-    "gui.extension.openai.description":"使用 OpenAI 公司的人工智慧模型進行自然語言與影像處理任務",
     "videoSensing.changeUsbWebcam":"切換鏡頭",
     "videoSensing.ue_cam":"使用[WEBCAM]鏡頭",
     "videoSensing.u_or_e":"後,前",
@@ -60579,5 +60580,14 @@ export default {
     "gui.extension.dataMining.description":"挖掘大量資料進行知識探索，並使用分析模型來評估與預測",
     "gui.menuBar.farmware":"韌體",
     "gui.extension.gemini.description":"使用 Google Gemini 的人工智慧模型進行自然語言處理任務",
+    "gui.extension.davinci.description":"使用聯發科技達哥DaVinci AI的人工智慧模型進行自然語言處理任務",
+    "gui.extension.davinci.title":"達哥DaVinci AI",
+    "gui.extension.llmstudio.description":"使用LLM Studio AI的人工智慧模型進行自然語言處理任務",
+    "gui.extension.llmstudio.title":"LLM Studio AI",
+    "gui.extension.ic2scratch.description": "影像分類器",
+    "gui.extension.textSentiment.title":"文本情緒辨識",
+    "gui.extension.textSentiment.description": "使用文本情緒模型，辨識文本是否為正面或負面情緒",
+    "gui.extension.faceExpressionRecogintion.description":"使用攝影機捕捉臉部表情，辨識情緒如開心、平靜、生氣等",
+    "gui.extension.faceExpressionRecogintion.title":"臉部表情辨識",    
   }
 };

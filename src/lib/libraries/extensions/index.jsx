@@ -98,6 +98,12 @@ import mqttInsetIconURL from "./mqtt/mqtt-small.png";
 import linenotifyImage from "./linenotify/linenotify.svg";
 import linenotifyInsetIconURL from "./linenotify/linenotify_small.svg";
 
+import telegrambotImage from "./telegrambot/telegrambot.svg";
+import telegrambotInsetIconURL from "./telegrambot/telegrambot_small.svg";
+
+import pushnotifyapiImage from "./pushnotifyapi/pushnotifyapi.svg";
+import pushnotifyapiInsetIconURL from "./pushnotifyapi/pushnotifyapi_small.png";
+
 import ml2scratchIconURL from "./ml2scratch/ml2scratch.png";
 import ml2scratchInsetIconURL from "./ml2scratch/ml2scratch-small.png";
 
@@ -125,10 +131,27 @@ import openaiInsetIconURL from "./openai/openai-small.svg";
 import geminiImage from "./gemini/gemini.png";
 import geminiInsetIconURL from "./gemini/gemini-small.svg";
 
+/*import ollamaImage from "./ollama/ollama.svg";
+import ollamaInsetIconURL from "./ollama/ollama-small.svg";*/
+
 import facemesh2scratchIconURL from "./facemesh2scratch/facemesh2scratch.png";
 import facemesh2scratchInsetIconURL from "./facemesh2scratch/facemesh2scratch-small.png";
 import handpose2scratchIconURL from "./handpose2scratch/handpose2scratch.png";
 import handpose2scratchInsetIconURL from "./handpose2scratch/handpose2scratch-small.png";
+
+import davinciImage from "./davinci/davinci.png";
+import davinciInsetIconURL from "./davinci/davinci-small.png";
+import llmstudioImage from "./llmstudio/llmstudio.svg";
+import llmstudioInsetIconURL from "./llmstudio/llmstudio-small.png";
+
+import ic2scratchImage from "./ic2scratch/ic2scratch.png";
+import ic2scratchInsetIconURL from "./ic2scratch/ic2scratch-small.png";
+
+import textSentimentImage from "./textSentiment/textSentiment.png";
+import textSentimentInsetIconURL from "./textSentiment/textSentiment-small.png";
+
+import faceExpressionRecogintionImage from "./faceExpressionRecogintion/faceExpressionRecogintion.png";
+import faceExpressionRecogintionIconURL from "./faceExpressionRecogintion/faceExpressionRecogintion-small.png";
 
 const version = "v2-0.2.4";
 
@@ -711,6 +734,44 @@ const extensions = [
     //helpLink: ''
   },
   {
+    name: "TelegramBot",
+    extensionId: "telegrambot",
+    collaborator: "estea chen",
+    iconURL: telegrambotImage,
+    insetIconURL: telegrambotInsetIconURL,
+    description: (
+      <FormattedMessage
+        defaultMessage="Use Line Notify to send messages."
+        description="Use Line Notify to send messages."
+        id="gui.extension.telegrambot.description"
+      />
+    ),
+    featured: true,
+    disabled: false,
+    internetConnectionRequired: true,
+    bluetoothRequired: false,
+    //helpLink: ''
+  },
+  {
+    name: "Push Notify API",
+    extensionId: "pushnotifyapi",
+    collaborator: "estea chen",
+    iconURL: pushnotifyapiImage,
+    insetIconURL: pushnotifyapiInsetIconURL,
+    description: (
+      <FormattedMessage
+        defaultMessage="Use Push Notify API app to send messages."
+        description="Use Push Notify API app to send messages."
+        id="gui.extension.pushnotifyapi.description"
+      />
+    ),
+    featured: true,
+    disabled: false,
+    internetConnectionRequired: true,
+    bluetoothRequired: false,
+    //helpLink: ''
+  },
+  {
     name: (
       <FormattedMessage
         defaultMessage="QR Code"
@@ -1091,6 +1152,27 @@ const extensions = [
     useAutoScan: false,
     helpLink: "https://www.gemini.com/",
   },
+  /*{
+    name: "ollama",
+    extensionId: "ollama",
+    collaborator: "estea chen",
+    iconURL: ollamaImage,
+    insetIconURL: ollamaInsetIconURL,
+    description: (
+      <FormattedMessage
+        defaultMessage="Use ollama’s models to process natural language and generate images."
+        description="Use ollama’s models to process natural language and generate images."
+        id="gui.extension.ollama.description"
+      />
+    ),
+    featured: true,
+    disabled: false,
+    // bluetoothRequired: false,
+    internetConnectionRequired: true,
+    // launchPeripheralConnectionFlow: false,
+    useAutoScan: false,
+    //helpLink: "https://www.deepseek.com/",
+  },*/
   {
     name: "webserialmicro:bit",
     extensionId: "webserialmicrobit",
@@ -1120,8 +1202,131 @@ const extensions = [
       />
     ),
     //helpLink: "https://scratch.mit.edu/microbit",
+  }, 
+  {
+    name:(
+      <FormattedMessage
+        defaultMessage="DaVinci"
+        description="MediaTek DaVinci extension"
+        id="gui.extension.davinci.title"
+      />
+    ),
+    extensionId: "davinci",
+    collaborator: "estea chen ",
+    iconURL: davinciImage,
+    insetIconURL: davinciInsetIconURL,
+    description: (
+      <FormattedMessage
+        defaultMessage="MediaTek DaVinci AI."
+        description="MediaTek DaVinci AI. extension"
+        id="gui.extension.davinci.description"
+      />
+    ),
+    featured: true,
+    disabled: false,
+    // bluetoothRequired: false,
+    internetConnectionRequired: true,
+    // launchPeripheralConnectionFlow: false,
+    useAutoScan: false,
+    helpLink: "https://prod.dvcbot.net/",
+    },   
+    {
+    name:(
+      <FormattedMessage
+        defaultMessage="LLM Studio"
+        description="LLM Studio extension"
+        id="gui.extension.llmstudio.title"
+      />
+    ),
+    extensionId: "llmstudio",
+    collaborator: "estea chen ",
+    iconURL: llmstudioImage,
+    insetIconURL: llmstudioInsetIconURL,
+    description: (
+      <FormattedMessage
+        defaultMessage="LLM Studio AI."
+        description="LLM Studio AI. extension"
+        id="gui.extension.llmstudio.description"
+      />
+    ),
+    featured: true,
+    disabled: false,
+    // bluetoothRequired: false,
+    internetConnectionRequired: true,
+    // launchPeripheralConnectionFlow: false,
+    useAutoScan: false,
+    helpLink: "https://lmstudio.ai/",
+    },
+    {
+    name: "ic2scratch",
+    extensionId: "ic2scratch",
+    collaborator: "champierre",
+    iconURL: ic2scratchImage,
+    insetIconURL: ic2scratchInsetIconURL,
+    description: (
+      <FormattedMessage
+        defaultMessage='Image Classifier Blocks.'
+        description='Image Classifier Blocks.'
+        id='gui.extension.ic2scratch.description'
+      />
+    ),
+    featured: true,
+    disabled: false,
+    internetConnectionRequired: true,
+    bluetoothRequired: false,
+    helpLink: 'https://github.com/champierre/ic2scratch'
+  },
+  {
+    name: (
+      <FormattedMessage
+        defaultMessage="Text Sentiment"
+        description="Text Sentiment extension"
+        id="gui.extension.textSentiment.title"
+      />
+    ),
+    extensionId: "textSentiment",
+    collaborator: "TYiC",
+    iconURL: textSentimentImage,
+    insetIconURL: textSentimentInsetIconURL,
+    description: (
+      <FormattedMessage
+        defaultMessage="Text Sentiment."
+        description="Text Sentiment."
+        id="gui.extension.textSentiment.description"
+      />
+    ),
+    featured: true,
+    disabled: false,
+    internetConnectionRequired: true,
+    useAutoScan: false,
+    helpLink: "https://github.com/estea8968/scratch3-internet",
+  },
+  {
+    name: (
+      <FormattedMessage
+        defaultMessage="Face Expression Recogintion"
+        description="Face Expression Recogintion extension"
+        id="gui.extension.faceExpressionRecogintion.title"
+      />
+    ),
+    extensionId: "faceExpressionRecogintion",
+    collaborator: "TYiC",
+    iconURL: faceExpressionRecogintionImage,
+    insetIconURL: faceExpressionRecogintionIconURL,
+    description: (
+      <FormattedMessage
+        defaultMessage="Face Expression Recogintion"
+        description="Face Expression Recogintion."
+        id="gui.extension.faceExpressionRecogintion.description"
+      />
+    ),
+    featured: true,
+    disabled: false,
+    // bluetoothRequired: false,
+    internetConnectionRequired: true,
+    // launchPeripheralConnectionFlow: false,
+    useAutoScan: false,
   },  
-  
 ];
 export { extensions };
 export default extensions;
