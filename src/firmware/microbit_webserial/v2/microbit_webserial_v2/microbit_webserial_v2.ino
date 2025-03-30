@@ -1,6 +1,6 @@
-//版本日期 112 12 12
+//版本日期 114 03 30
 //版號
-char *ver = "1121112";
+char *ver = "1140330";
 #include <Wire.h>
 #include <Adafruit_Microbit.h>
 //#include "MMA8653.h"
@@ -255,7 +255,11 @@ void loop() {
           Serial.println(b_String);
           verzenden(b_String);
         }
-      }  
+      }
+      //廣播群組
+      if(strcmp(commandString, "radioid") == 0){
+        MicrobitRadio.setGroup(atoi(b_String));  
+      }
       //MMA8653 xyz
       if(strcmp(commandString, "mma") == 0){
         Mag.GetAxes(magnetometer);   // Used for compass
