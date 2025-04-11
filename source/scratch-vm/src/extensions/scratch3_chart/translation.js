@@ -63,6 +63,11 @@ export const radarChart = {
     'zh-tw': '雷達圖'
 };
 
+export const radarChartRange = {
+    'en': 'set radar chart range: [min] to [max]',
+    'zh-tw': '設定雷達圖數值範圍：[min]至[max]'
+};
+
 export const ganttChart = {
     'en': 'gantt chart',
     'zh-tw': '甘特圖'
