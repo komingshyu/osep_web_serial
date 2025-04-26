@@ -373,17 +373,18 @@ class scratch3_davinci {
             if(index_http>0){
                 const one=this.ai_anaswer.split('(');
                     let two = '';
-                    let newWindow={};
+                    let newWindow = window.open("", "image html");
+                    newWindow.document.write("<!DOCTYPE html><html><head><title>Image html</title></head><body>");
+                    newWindow.document.write("<p>"+this.INPUT_MSG+"</p>");
                     for(i=1;i<one.length;i++){
                      two=one[i].split(')');
                      //two[0]=two[0].replace('sandbox:','https://prod.dvcbot.net');//取代
                      let twoo=two[0].split('/');
                      console.log('twoo4=',twoo[4])
-                     newWindow = window.open("", "image file"+i);
-                     newWindow.document.write("<!DOCTYPE html><html><head><title>Image"+i+"</title></head><body>");
+                     newWindow.document.write("<p>image"+i+"</p>")
                      newWindow.document.write("<img src='https://prod.dvcbot.net/api/files/images/"+twoo[4]+"' /></body></html>");
-                     newWindow.document.close();
                     }
+                    newWindow.document.close();
                 
             }
             this.API_KEY='';
