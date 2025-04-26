@@ -382,8 +382,9 @@ class scratch3_davinci {
                      let twoo=two[0].split('/');
                      console.log('twoo4=',twoo[4])
                      newWindow.document.write("<p>image"+i+"</p>")
-                     newWindow.document.write("<img src='https://prod.dvcbot.net/api/files/images/"+twoo[4]+"' /></body></html>");
+                     newWindow.document.write("<img src='https://prod.dvcbot.net/api/files/images/"+twoo[4]+"' />");
                     }
+                    newWindow.document.write("</body></html>");
                     newWindow.document.close();
                 
             }
