@@ -127,14 +127,15 @@ class textSentiment {
         this.translateToEnglish(words);
     }
 
-    translateToEnglish(words) {
-        let urlBase = `https://translate-service.scratch.mit.edu/translate?language=en&text=` + encodeURIComponent(words);
-
-        const translatePromise = fetchWithTimeout(urlBase, {}, 3000)
+    async translateToEnglish(words) {
+        //let urlBase = `https://translate-service.scratch.mit.edu/translate?language=en&text=` + encodeURIComponent(words);
+        const cors_url=`https://script.google.com/macros/s/AKfycbw1NlgIow437hbalepBnPBIOWiLdEU8ZqhS-CVI2nBD1V1nY2Y-mMFSzSK9YUbE7waH/exec`;
+            const translatePromise = await fetchWithTimeout(cors_url+'?lang=en&t='+encodeURIComponent(words), {}, 10000)
             .then(response => response.text())
             .then(responseText => {
                 const translated = JSON.parse(responseText).result;
-                this.text = translated;
+                this.text = translated;   
+                console.log('text=',this.text);             
             });
     }
 
