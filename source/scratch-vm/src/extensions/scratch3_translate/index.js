@@ -5,6 +5,7 @@ const log = require('../../util/log');
 const fetchWithTimeout = require('../../util/fetch-with-timeout');
 const languageNames = require('scratch-translate-extension-languages');
 const formatMessage = require('format-message');
+const ml5 = require('ml5');
 
 /**
  * Icon svg to be displayed in the blocks category menu, encoded as a data URI.
@@ -247,7 +248,7 @@ class Scratch3TranslateBlocks {
      * @param {object} args - the block arguments.
      * @return {Promise} - a promise that resolves after the response from the translate server.
      */
-    getTranslate (args) {
+    async getTranslate (args) {
         // If the text contains only digits 0-9 and nothing else, return it without
         // making a request.
         if (/^\d+$/.test(args.WORDS)) return Promise.resolve(args.WORDS);
@@ -268,7 +269,7 @@ class Scratch3TranslateBlocks {
         urlBase += encodeURIComponent(args.WORDS);
         
         const tempThis = this;
-        const translatePromise = fetchWithTimeout(urlBase, {}, serverTimeoutMs)
+        const translatePromise = await fetchWithTimeout(urlBase, {}, serverTimeoutMs)
             .then(response => response.text())
             .then(responseText => {
                 const translated = JSON.parse(responseText).result;
