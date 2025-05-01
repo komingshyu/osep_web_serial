@@ -128,9 +128,24 @@ class textSentiment {
     }
 
     async translateToEnglish(words) {
+        //提出數字陣列
+        let aa = words.match(/\d+(\.\d+)?/g);
+        //console.log('aa=',aa);
+        let endtext=words;
+        if(aa!=null){
+            if(aa.length>0){
+                for (let step = 0; step < aa.length; step++) {
+                    // Runs 5 times, with values of step 0 through 4.
+                    endtext = words.replace(aa[step],' '+aa[step]);
+                }
+                
+            }
+        }        
+        console.log('endtext=',endtext);
+
         //let urlBase = `https://translate-service.scratch.mit.edu/translate?language=en&text=` + encodeURIComponent(words);
         const cors_url=`https://script.google.com/macros/s/AKfycbw1NlgIow437hbalepBnPBIOWiLdEU8ZqhS-CVI2nBD1V1nY2Y-mMFSzSK9YUbE7waH/exec`;
-            const translatePromise = await fetchWithTimeout(cors_url+'?lang=en&t='+encodeURIComponent(words), {}, 10000)
+            const translatePromise = await fetchWithTimeout(cors_url+'?lang=en&t='+encodeURIComponent(endtext), {}, 10000)
             .then(response => response.text())
             .then(responseText => {
                 const translated = JSON.parse(responseText).result;

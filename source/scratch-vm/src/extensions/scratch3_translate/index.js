@@ -27,7 +27,7 @@ const blockIconURI = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAABQCAYA
  */
 const serverURL = 'https://translate-service.scratch.mit.edu/';
 const cors_url=`https://script.google.com/macros/s/AKfycbw1NlgIow437hbalepBnPBIOWiLdEU8ZqhS-CVI2nBD1V1nY2Y-mMFSzSK9YUbE7waH/exec`;
-
+//const cors_url=`https://script.google.com/macros/s/AKfycby5JcCay-H52OFbNW9vQZ24yvlQr13vNhwGSBaFpogzj5XIXD8Hpnj4QIFSoH1WQA/exec`;
 /**
  * How long to wait in ms before timing out requests to translate server.
  * @type {int}
@@ -266,13 +266,33 @@ class Scratch3TranslateBlocks {
         urlBase += lang;
         //urlBase += '&text=';
         urlBase += '&t=';
-        urlBase += encodeURIComponent(args.WORDS);
-        
+        //urlBase += encodeURIComponent(args.WORDS);
+        let endtext=args.WORDS;
+        //提出數字陣列
+        let aa = args.WORDS.match(/\d+(\.\d+)?/g);
+        console.log('aa=',aa);
+        if(aa!=null){
+            if(aa.length>0){
+                for (let step = 0; step < aa.length; step++) {
+                    // Runs 5 times, with values of step 0 through 4.
+                    endtext = args.WORDS.replace(aa[step],' '+aa[step]);
+                }
+                
+            }
+        }        
+        console.log('endtext=',endtext);
+         
+        //urlBase += args.WORDS;
+        urlBase += endtext;
+        //urlBase += args.WORDS;
+        console.log('urlBase=',urlBase);
+
         const tempThis = this;
         const translatePromise = await fetchWithTimeout(urlBase, {}, serverTimeoutMs)
             .then(response => response.text())
             .then(responseText => {
                 const translated = JSON.parse(responseText).result;
+                console.log('translated=',translated);
                 tempThis._translateResult = translated;
                 // Cache what we just translated so we don't keep making the
                 // same call over and over.
