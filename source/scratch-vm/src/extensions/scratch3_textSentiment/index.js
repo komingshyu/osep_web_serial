@@ -28,7 +28,7 @@ class textSentiment {
 
         // 設定文字情緒的置信度
         this.confidence = 0;
-
+        this.text='hello';
         // 載入 ML5 Sentiment Model 
         this.sentiment = ml5.sentiment('MovieReviews');
     }
@@ -148,20 +148,20 @@ class textSentiment {
             const translatePromise = await fetchWithTimeout(cors_url+'?lang=en&t='+encodeURIComponent(endtext), {}, 10000)
             .then(response => response.text())
             .then(responseText => {
-                const translated = JSON.parse(responseText).result;
-                this.text = translated;   
+                //const translated = JSON.parse(responseText).result;
+                this.text = JSON.parse(responseText).result; //translated;   
                 console.log('text=',this.text);             
             });
+            
     }
 
-    async startTextSentiment() {
-        await this.sleep(2000);
-        this.confidence = this.sentiment.predict(this.text)["score"];
+    async startTextSentiment() {       
+        this.confidence = await this.sentiment.predict(this.text)["score"];
     }
 
-    sleep(ms) {
+    /*sleep(ms) {
         return new Promise(resolve => setTimeout(resolve, ms));
-    }
+    }*/
 
     getConfidence() {
         return this.confidence.toFixed(2);
