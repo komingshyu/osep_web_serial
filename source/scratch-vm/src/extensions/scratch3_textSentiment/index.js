@@ -28,7 +28,7 @@ class textSentiment {
 
         // 設定文字情緒的置信度
         this.confidence = 0;
-
+        this.text='hello';
         // 載入 ML5 Sentiment Model 
         this.sentiment = ml5.sentiment('MovieReviews');
     }
@@ -127,25 +127,41 @@ class textSentiment {
         this.translateToEnglish(words);
     }
 
-    translateToEnglish(words) {
-        let urlBase = `https://translate-service.scratch.mit.edu/translate?language=en&text=` + encodeURIComponent(words);
+    async translateToEnglish(words) {
+        //提出數字陣列
+        let aa = words.match(/\d+(\.\d+)?/g);
+        //console.log('aa=',aa);
+        let endtext=words;
+        if(aa!=null){
+            if(aa.length>0){
+                for (let step = 0; step < aa.length; step++) {
+                    // Runs 5 times, with values of step 0 through 4.
+                    endtext = words.replace(aa[step],' '+aa[step]);
+                }
+                
+            }
+        }        
+        console.log('endtext=',endtext);
 
-        const translatePromise = fetchWithTimeout(urlBase, {}, 3000)
+        //let urlBase = `https://translate-service.scratch.mit.edu/translate?language=en&text=` + encodeURIComponent(words);
+        const cors_url=`https://script.google.com/macros/s/AKfycbw1NlgIow437hbalepBnPBIOWiLdEU8ZqhS-CVI2nBD1V1nY2Y-mMFSzSK9YUbE7waH/exec`;
+            const translatePromise = await fetchWithTimeout(cors_url+'?lang=en&t='+encodeURIComponent(endtext), {}, 10000)
             .then(response => response.text())
             .then(responseText => {
-                const translated = JSON.parse(responseText).result;
-                this.text = translated;
+                //const translated = JSON.parse(responseText).result;
+                this.text = JSON.parse(responseText).result; //translated;   
+                console.log('text=',this.text);             
             });
+            
     }
 
-    async startTextSentiment() {
-        await this.sleep(2000);
-        this.confidence = this.sentiment.predict(this.text)["score"];
+    async startTextSentiment() {       
+        this.confidence = await this.sentiment.predict(this.text)["score"];
     }
 
-    sleep(ms) {
+    /*sleep(ms) {
         return new Promise(resolve => setTimeout(resolve, ms));
-    }
+    }*/
 
     getConfidence() {
         return this.confidence.toFixed(2);

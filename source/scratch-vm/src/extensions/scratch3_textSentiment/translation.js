@@ -14,11 +14,11 @@ export const defaultText = {
 };
 
 export const startTextSentiment = {
-    'en': 'Please enter text',
+    'en': 'Start Text Emotion Recognition',
     'zh-tw': '開始文字情緒辨識'
 };
 
 export const confidence = {
-    'en': 'Please enter text',
+    'en': 'Text Emotion Confidence',
     'zh-tw': '文字情緒置信度'
 };
