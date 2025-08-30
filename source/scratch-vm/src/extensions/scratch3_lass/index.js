@@ -7,7 +7,7 @@ const menuIconURI = null;
 const blockIconURI = null;
 
 const LASS_URI = 'https://pm25.lass-net.org/data/last.php?device_id=';
-const AQI_URI = 'https://data.moenv.gov.tw/api/v2/aqx_p_432?api_key=e8dd42e6-9b8b-43f8-991e-b3dee723a52d&limit=1000&sort=ImportDate%20desc&format=json';
+const AQI_URI = 'https://data.moenv.gov.tw/api/v2/aqx_p_432?api_key=0ef90d4c-45c1-4b11-b8cc-b9a28b142096';
 const WERTHER_URL = 'https://opendata.cwa.gov.tw/api/v1/rest/datastore/F-C0032-001?format=JSON&Authorization=';
 
 let theLocale = null;
@@ -253,7 +253,7 @@ class gasoLASS {
     }
 
     openAirmapG0v() {
-        window.open("https://list.airmap.g0v.tw/");
+        window.open("http://env.g0v.tw/air/");
     }
 
     async fetchLASS(args) {
