@@ -23,9 +23,8 @@ export const size  ={
 };
 
 export const drawimage = {
-    'en': 'create [NUM] image of[SIZE] size  based upon text[TEXT] ',
-    'zh-tw': 'AI繪圖[SIZE]大小[NUM]張 圖片描述[TEXT] '
-
+    'en': 'text create  images. [TEXT] ',
+    'zh-tw': '文生圖片，描述[TEXT] '
 };
 
 export const set_ai_user ={
@@ -66,4 +65,13 @@ export const error_api_key_null={
 export const name = {
     'en': 'GeminiAI',
     'zh-tw': 'GeminiAI'
+};
+
+export const upload_file={
+    'en': 'Up load file',
+    'zh-tw': '上傳檔案'
+};
+export const gmeini_api_key_url={
+    'en': 'opne Gemini api key url',
+    'zh-tw': '開啟Gemini api key網站'
 };
