@@ -30,7 +30,34 @@ export const openCORS = {
     'en': 'open a CORS URL',
     'zh-tw': '開啟 CORS 網址'
 };
-
+export const openexceltojsonurl ={
+    'en': 'open excel to json url',
+    'zh-tw': '開啟試算表轉json網站'
+}
+export const jsondeletenum ={
+    'en': 'Delete the [NUM] record',
+    'zh-tw': '刪除第[NUM]筆資料'
+}
+export const editjson ={
+    'en': 'edit json data row [ROW] column [COL] valumn=[VALUE]',
+    'zh-tw': '修改資料第[ROW]筆欄位[COL]值為[VALUE]'
+};
+export const copyTEXT_memory ={
+    'en': 'copy [TEXT]to clipboard',
+    'zh-tw': '複製[TEXT]到剪貼簿'
+};
+export const texttojson ={
+    'en': '[TEXT]  to json',
+    'zh-tw': '文字[TEXT]轉JSON'
+};
+export const jsonclear ={
+    'en': 'json data delete all',
+    'zh-tw': '資料元素全部刪除'
+};
+export const jsonpush ={
+    'en': 'push [TEXT] to json from [NUM] record',
+    'zh-tw': '增加1筆資料[TEXT]在[NUM]記錄'
+};
 export const clearJSONData = {
     'en': 'clear JSON data',
     'zh-tw': '清除 JSON 資料',
