@@ -51,11 +51,15 @@ export const texttojson ={
     'zh-tw': '文字[TEXT]轉JSON'
 };
 export const jsonclear ={
-    'en': 'json data delete all',
+    'en': 'Delete all elements',
     'zh-tw': '資料元素全部刪除'
 };
+export const jsonreplace ={    
+    'en': 'Replace record [NUM] with record [TEXT]',
+    'zh-tw': '第[NUM]記錄更換為[TEXT]'
+};
 export const jsonpush ={
-    'en': 'push [TEXT] to json from [NUM] record',
+    'en': 'Add 1 record [TEXT] to [NUM] record',
     'zh-tw': '增加1筆資料[TEXT]在[NUM]記錄'
 };
 export const clearJSONData = {
@@ -75,7 +79,7 @@ export const readFromJSON = {
 
 export const readFromJSONErr = {
     'en': 'Error: JSON data does not exist',
-    'zh-tw': '錯誤：JSON 資料不存在'
+    'zh-tw': '錯誤:JSON 資料不存在'
 };
 
 export const readEntryFromJSON = {

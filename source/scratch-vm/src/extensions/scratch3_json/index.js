@@ -395,6 +395,21 @@ class gasoJSON {
                         },                        
                     },
                     text: msg.jsonpush[theLocale],
+                },
+                {
+                    opcode: "jsonreplace",
+                    blockType: BlockType.COMMAND,
+                    arguments: {
+                        NUM:{
+                            type: ArgumentType.NUMBER,
+                            defaultValue: 1,
+                        },
+                        TEXT: {
+                            type: ArgumentType.STRING,
+                            defaultValue: '{}',
+                        },                        
+                    },
+                    text: msg.jsonreplace[theLocale],
                 },                
                 {
                     opcode: "jsondeletenum",
@@ -504,6 +519,21 @@ class gasoJSON {
         const num = parseInt(args.NUM,10);
         let json_array=JSON.parse(this.data.data);
         json_array.splice(num-1,0,args_text);
+        //json_array[json_array.length]=in_array;
+        console.log('json_array=',json_array);
+        //this.data.data = JSON.stringify(JSON.parse(JSON.stringify(json_array)));
+        this.data.data = JSON.stringify(json_array);
+        console.log('this.data.data =',this.data.data);
+        this.data.fetched = true;
+        this.runtime.startHats('gasoJSON_onJSONReceived', {});
+        return this.data.data; 
+    }
+    jsonreplace(args){
+        const args_text=JSON.parse(args.TEXT);
+        //const in_array = args_text[0];
+        const num = parseInt(args.NUM,10);
+        let json_array=JSON.parse(this.data.data);
+        json_array.splice(num-1,1,args_text);
         //json_array[json_array.length]=in_array;
         console.log('json_array=',json_array);
         //this.data.data = JSON.stringify(JSON.parse(JSON.stringify(json_array)));
