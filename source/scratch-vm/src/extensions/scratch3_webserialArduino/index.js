@@ -714,7 +714,11 @@ class Scratch3ArduinoWebSerial {
     async ws2812_write(args) {
         let pin = args['PIN'];
         pin = pin.toString().substring(0,2);
-        let num = args['NUM'];
+        let num = args['NUM'].trim();
+        //if(num == ''){ alert( 'Can not null, try * ');}
+        if ( num =='*'){
+            num = '123456789abc';
+        } 
         let red = args['RED'];
         red = parseInt(red, 10);
         let green = args['GREEN'];
